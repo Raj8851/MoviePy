@@ -1,0 +1,20 @@
+audio_clip=VideoFileClip("C:\\Users\mdwasim_r\Desktop\youtube\TuKitni.mp4").subclip(10,19).audio
+audio_clip=audio_clip.audio_loop(audio_clip,duration=57)
+clip=VideoFileClip(r"C:\Users\mdwasim_r\Desktop\youtube\Bird.mp4")
+
+
+
+st=0
+ed=60
+no_clip=round(clip.duration/ed)-1
+
+
+for i in range(no_clip):
+    clip1=clip.subclip(st,ed)
+    clip_resized = clip1.resize(height=500,width=500)
+    clip_resized=clip_resized.fx(vfx.speedx,1.05)
+    clip_resized=clip_resized.set_audio(audio_clip)
+    save_path="C:\\Users\mdwasim_r\Desktop\youtube\Bird_{}_{}.mp4".format(st,ed)
+    clip_resized.write_videofile(save_path)
+    st=st+60
+    ed=ed+60
