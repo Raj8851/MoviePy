@@ -18,6 +18,29 @@ for i in range(5):
     img=img.crossfadeout(i+2)
     
     images_clip.append(img)
+-----------------------------------------------------------------------------------------------------------------
+#version V2
+from moviepy.editor import *
+clip=VideoFileClip(r"C:\Users\mdwasim_r\Desktop\youtube\Bird.mp4").subclip(10,20)
+final=clip.fx(vfx.colorx,1.5)
+# clip.ipython_display(width=250,height=250)
+
+# clip_color=ColorClip(size=(200,70),color=[100,10,255])
+
+images_clip=[]
+for i in range(5):
+    path=r"C:\Users\mdwasim_r\Desktop\youtube\{}.jpg".format(i+1)
+    img_clip=ImageClip(path)
+    img_clip=img_clip.resize((200,80))
+    img=img_clip.set_position((0,0))
+    img=img.set_duration(2)
+    img=img.set_start(i*2)
+    images_clip.append(img)
+
+
+            
+final2=CompositeVideoClip([final]+images_clip)
+final2.ipython_display(width=250)
 
 
             
