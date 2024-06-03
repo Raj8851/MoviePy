@@ -1,0 +1,14 @@
+from moviepy.editor import *
+
+vdo=VideoFileClip(r"C:\Users\mdwasim_r\Desktop\youtube\Bird.mp4").subclip(15,30)
+w,h=vdo.size
+vdo=vdo.crop(x1=0,y1=70,x2=w,y2=h)
+vdo=vdo.fx(vfx.resize,(320,240))
+vdo=vdo.fx(vfx.speedx,1.09)
+vdo=vdo.fx(vfx.colorx,1.05)
+vdo=vdo.fx(vfx.mirror_x)
+vdo=vdo.cutout(2,6)
+
+w,h=vdo.size
+print(w,h)
+vdo.ipython_display(width=360)
