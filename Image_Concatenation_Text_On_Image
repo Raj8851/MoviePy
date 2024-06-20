@@ -1,0 +1,49 @@
+# library 
+from PIL import Image, ImageFont, ImageDraw
+
+import matplotlib.pyplot as plt 
+import textwrap
+
+
+# opening up of images 
+img1 = Image.open(r"C:\Users\mdwasim_r\Desktop\AI Images\Nature Beauty\selected\1.1.png") 
+img2 = Image.open(r"C:\Users\mdwasim_r\Desktop\AI Images\Nature Beauty\selected\2.2.png") 
+logo2 = Image.open(r"C:\Users\mdwasim_r\Desktop\Logo2.png") 
+
+    
+img1_size = img1.resize((500, 280)) 
+img2_size = img2.resize((500, 280)) 
+logo_size = logo2.resize((50, 50))
+
+mid_pos_wid=60
+img_mid = Image.new("RGB", (500, mid_pos_wid), "white")
+
+#Calculate Image Height
+hi_all_img=img1_size.size[1]+img2_size.size[1]+img_mid.size[1]
+
+
+img3 = Image.new("RGB", (500, hi_all_img), "white")
+
+
+# pasting the first image (image_name, 
+# (position)) 
+img3.paste(img1_size, (0, 0)) 
+img3.paste(img2_size, (0, 280+mid_pos_wid))
+img3.paste(img_mid,(0,280))
+img3.paste(logo_size,(0,0))
+
+font33 = ImageFont.truetype(r"C:\Users\mdwasim_r\Downloads\poppins\Poppins-Medium.ttf", 18)
+
+text="""कौनसा बेहतर है?
+ऊपर के लिए लाईक करें और नीचे के लिए कमैंट्स करें"""
+               
+                         
+draw = ImageDraw.Draw(img3)
+                         
+
+# font = ImageFont.truetype("arial.ttf", 10)
+draw.text((20, 280),text,(0,0,0),font=font33,stroke_width=0,align='left')
+
+  
+plt.imshow(img3)
+# img2.save(r"C:\Users\mdwasim_r\Desktop\AI Images\Nature Beauty\selected\output.png")
