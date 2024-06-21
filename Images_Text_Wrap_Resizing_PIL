@@ -1,0 +1,37 @@
+# Importing Image and ImageFont, ImageDraw module from PIL package 
+from PIL import Image, ImageFont, ImageDraw
+import pandas as pd
+import glob
+
+
+
+im_path=glob.glob(r"C:\Users\mdwasim_r\Desktop\AI Images\Nature Beauty\selected\*.png")
+i=0
+
+for pth in im_path:
+  
+    # creating a image object 
+    image = Image.open(pth) 
+    resized_image=image.resize((280,280))
+    draw = ImageDraw.Draw(resized_image) 
+
+    # specified font size 
+    font33 = ImageFont.truetype(r"C:\Users\mdwasim_r\Downloads\poppins\Poppins-BoldItalic.ttf", 15)
+
+    # font = ImageFont.truetype(r'C:\Users\System-Pc\Desktop\arial.ttf', 15)
+    # font33 = ImageFont.truetype(r"C:\Users\mdwasim_r\Downloads\poppins\Poppins-Medium.ttf", 10)
+
+    spacing = 10
+
+    quotes_df=pd.read_excel(r"C:\Users\mdwasim_r\Desktop\AI Images\Nature Beauty\QuotesList.xlsx")
+    text=quotes_df['BestLine'][i]
+    # text = """कौनसा बेहतर है 
+    # (Lऊपर के लिए लाईक करें \n नीचे के लिए कमैंट्स करें)"""
+
+    # drawing text size 
+    w,h=resized_image.size
+    draw.text((20, h-100), text, fill ="white",font = font33, spacing = spacing, align ="left") 
+    sv_path=r"C:\Users\mdwasim_r\Desktop\AI Images\Nature Beauty\selected\Resized\{}.png".format(i)
+    resized_image.save(sv_path)
+    i=i+1
+        
