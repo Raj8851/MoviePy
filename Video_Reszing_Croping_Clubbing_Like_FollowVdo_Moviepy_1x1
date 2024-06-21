@@ -1,0 +1,31 @@
+from moviepy.editor import *
+import moviepy.video.fx.all as vfx
+
+vdo=VideoFileClip(r"C:\Users\mdwasim_r\Desktop\youtube\Birds4k.mp4").subclip(80,90)
+w,h=vdo.size
+vdo=vdo.crop(x1=0,y1=0,x2=w,y2=h-70)
+
+vdo1=vdo.subclip(0,5)
+vdo2=vdo.subclip(5,10)
+final_vdo=clips_array([[vdo1],[vdo2]])
+
+like_follow=VideoFileClip(r"C:\Users\mdwasim_r\Desktop\youtube\LikeandFollow.mp4").subclip(6,13)
+like_follow=like_follow.crop(x1=280,y1=300,x2=1000,y2=420)
+
+new_like_follow=vfx.loop(like_follow,duration=final_vdo.duration)
+
+new_like_follow=new_like_follow.set_position(('left','bottom'))
+
+w,h=final_vdo.size
+v_size=720
+final_vdo=final_vdo.fx(vfx.resize,(v_size,v_size),width=v_size,height=v_size)
+
+w,h=final_vdo.size
+print(w,h)
+croparea=120
+final_vdo=final_vdo.crop(x1=0,y1=0,x2=w,y2=w-croparea).margin(bottom=croparea)
+
+final_vdo_2=CompositeVideoClip([final_vdo,new_like_follow])
+
+
+final_vdo_2.ipython_display(width=360)
