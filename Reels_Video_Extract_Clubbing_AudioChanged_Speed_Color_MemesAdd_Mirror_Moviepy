@@ -1,0 +1,57 @@
+from moviepy.editor import *
+import glob
+
+memes_path=r"C:\Users\mdwasim_r\Desktop\yt\Memes\*.mp4"
+memes_urls=glob.glob(memes_path)
+
+
+ado=AudioFileClip(r"C:\Users\mdwasim_r\Desktop\yt\FunnySoundEffects.mp3").subclip(8,15)
+vdo_name=input("Enter Video Output Name: ")
+
+rel_st=0
+rel_end=90
+rel_freq=90
+NoOfClips=int(VideoFileClip(r"C:\Users\mdwasim_r\Desktop\yt\Birds4k.mp4").duration/rel_freq)
+
+for rel in range(NoOfClips):
+    reel_vdo=VideoFileClip(r"C:\Users\mdwasim_r\Desktop\yt\Birds4k.mp4").subclip(rel_st,rel_end)
+
+
+    st=0
+    end=15
+    freq=15
+    comp_vdo=[]
+    for i in range(6):
+        vdo=reel_vdo.subclip(st,end)
+        vdo=vdo.fx(vfx.resize,(720,720))
+        ado=afx.audio_loop(ado,duration=vdo.duration)
+        vdo=vdo.set_audio(ado)
+        vdo=vdo.fx(vfx.speedx,1.3)
+    #     vdo=vdo.fx(vfx.invert_colors)
+    #     vdo=vdo.fx(vfx.mask_color)
+    #     vdo=vdo.fx(vfx.lum_contrast, lum=50, contrast=0.8, contrast_thr=150)
+
+
+
+        if i%2==0:
+            vdo=vdo.fx(vfx.mirror_x)
+            vdo=vdo.fx(vfx.colorx,1.2)
+        if i%2==1:
+            vdo=vdo.fx(vfx.colorx,1.3)
+
+        meme_vdo=VideoFileClip(memes_urls[i])
+        meme_vdo=meme_vdo.fx(vfx.resize,(720,720))
+        final_vdo=concatenate_videoclips([vdo,meme_vdo])
+        comp_vdo.append(final_vdo)
+        st=st+freq
+        end=end+freq
+
+
+    comp_vdo=concatenate_videoclips(comp_vdo)
+    sv_path=r"C:\Users\mdwasim_r\Desktop\yt\{}_{}_{}.mp4".format(vdo_name,rel_st,rel_end)
+    comp_vdo.write_videofile(sv_path)
+    
+    rel_st=rel_st+rel_freq
+    rel_end=rel_end+rel_freq
+
+
